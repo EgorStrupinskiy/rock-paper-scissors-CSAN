@@ -1,0 +1,303 @@
+/* CSS files add styling rules to your content */
+
+body {
+    font-family: helvetica, arial, sans-serif;
+    background: url('../indexAssets/images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Anton', sans-serif;
+    font-family: 'Inconsolata', monospace;
+    font-family: 'Josefin Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding: 20px 50px;
+    color: #753dc6;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.header__text span {
+    color: #753dc6;
+}
+
+.header {
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.header__inner {
+    background-color: #ffed2b;
+    display: flex;
+    justify-content: center;
+    border: 4px solid #753dc6;
+    padding: 0 30px;
+    border-radius: 40px;
+    align-items: center;
+}
+
+.header__text {
+    text-shadow: 2px 2px 2px #000;
+    text-transform: uppercase;
+    color: #ffff;
+    font-size: 35px;
+    font-family: 'Anton', sans-serif;
+}
+
+.header__logo {
+    width: 15%;
+    height: 15%;
+    margin: 0px 40px;
+}
+
+.text {
+    color: antiquewhite;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form__container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+
+.form__content {
+    margin-top: 40px;
+    padding-bottom: 40px;
+    background-color: #ffed2b;
+    width: 40%;
+    border: 8px #753dc6 solid;
+    border-radius: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form {
+    max-width: 800px;
+    padding: 20px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.input {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 30px;
+
+    border: 3px solid #753dc6;
+    font-family: 'Anton', sans-serif;
+    border-radius: 40px;
+    font-size: 16px;
+}
+
+.form__btn {
+    display: block;
+    width: 110%;
+    padding: 12px 10px;
+
+    border: 3px solid #753dc6;
+    border-radius: 30px;
+    background-color: #fff;
+    cursor: pointer;
+
+    font-family: 'Anton', sans-serif;
+    font-size: 22px;
+    color: #000;
+    transition: color .3s linear;
+    transition: background .3s linear;
+}
+
+.form__btn:hover {
+    background-color: #753dc6;
+    color: #ffed2b;
+    border-color: #fff;
+}
+
+.form__title {
+    margin-bottom: 30px;
+    font-size: 35px;
+    font-weight: 700;
+    color: #272727;
+    text-transform: uppercase;
+    color: #fff;
+    font-family: 'Anton', sans-serif;
+    text-shadow: 2px 2px 2px #000;
+    text-align: center;
+}
+
+.form__title span {
+    color: #753dc6;
+}
+
+
+
+
+
+/* Game */
+
+.game__container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: none;
+    justify-content: center;
+}
+
+
+.game__content {
+    margin-top: 40px;
+    padding-bottom: 40px;
+    background-color: #ffed2b;
+    width: 100%;
+    border: 8px #753dc6 solid;
+    border-radius: 100px;
+    display: block;
+}
+
+.game__title {
+    margin: 30px;
+    font-size: 35px;
+    font-weight: 700;
+    color: #272727;
+    text-transform: uppercase;
+    color: #fff;
+    font-family: 'Anton', sans-serif;
+    text-shadow: 2px 2px 2px #000;
+    text-align: center;
+}
+
+.game__title span {
+    color: #753dc6;
+}
+
+.hands {
+    display: flex;
+    justify-content: space-between;
+}
+
+.game__panel {
+    padding: 20px;
+    margin-top: 30px;
+    margin: 40px 100px;
+    border: 5px #753dc6 solid;
+    border-radius: 30px;
+    transition: ease .4s;
+}
+
+.game__panel:hover {
+    background-color: #fff;
+    border-color: #000;
+}
+
+.game__btn_paper input {
+    background: url(hands/paper.png) no-repeat ;
+    background-size: 90px;
+    margin-left: 10px;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    border: none;
+}
+
+.game__btn_rock input {
+    background: url(hands/rock.png) no-repeat;
+    background-size: 90px;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    border: none;
+}
+
+.game__btn_scissors input {
+    background: url(hands/scissors.png) no-repeat;
+    background-size: 90px;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    border: none;
+}
+
+.game__btn {
+    display: none;
+    width: 50%;
+    margin-left: 25%;
+    padding: 12px 10px;
+
+    border: 3px solid #753dc6;
+    border-radius: 30px;
+    background-color: #fff;
+    cursor: pointer;
+
+    font-family: 'Anton', sans-serif;
+    font-size: 22px;
+    color: #000;
+    transition: color .3s linear;
+    transition: background .3s linear;
+}
+
+.game__btn:hover {
+    background-color: #753dc6;
+    color: #ffed2b;
+    border-color: #fff;
+}
+
+
+/* gif */
+
+.gif {
+    display: block;
+    /* Устанавливаем */
+    width: 150px;
+    /* Ширина и высота картинки */
+    height: 150px;
+}
+
+.animation {
+    padding: 0px 150px;
+    margin-top: 100px;
+    position: relative;
+    animation-name: example;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+    display: none;
+}
+
+.wait_hand_left {
+    height: 200px;
+    width: 200px;
+    margin: 0px 100px;
+}
+
+.wait_hand_right {
+    height: 200px;
+    width: 200px;
+    transform: scale(-1, 1);
+    margin: 0px 100px;
+}
+
+@keyframes example {
+    0% {
+        top: 0px;
+    }
+
+    50% {
+        top: -20px;
+    }
+
+    100% {
+        top: 0px;
+    }
+}
