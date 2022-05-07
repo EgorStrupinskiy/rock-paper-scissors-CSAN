@@ -37,7 +37,7 @@
         <div id="content" class="form__content">
             <form class="form" method="post">
                 <div class="form__title"><span>E</span>nter <span>y</span>our <span>n</span>ame</div>
-                <input class="input" id = "name" type="text" placeholder="Your name" pattern=".{1,}" required>
+                <input class="input" id="name" type="text" placeholder="Your name" pattern=".{1,}" required>
                 <button class="form__btn" id="name_button" type="submit">Send</button>
             </form>
         </div>
@@ -45,12 +45,13 @@
 
     <div class="game__container" id="game">
         <div id="content" class="game__content">
-            <div class="game__title"><span>E</span>nter <span>y</span>our <span>n</span>ame</div>
+            
 
             <div class="hands_and_btn" id="hands_and_btn">
+                <div class="game__title"><span>C</span>hoose <span>y</span>our <span>f</span>ighter</div>
                 <div class="hands">
                     <div class="game__panel" id="btn_paper_panel">
-                        <div class="game__btn_paper" >
+                        <div class="game__btn_paper">
                             <input id="elem1" type="submit" name="" value="">
                         </div>
                     </div>
@@ -69,9 +70,14 @@
                 <button class="game__btn" id="game_button" type="submit">Send</button>
             </div>
 
-            <div class="animation" id="animation">
-                <img class=wait_hand_left src="./indexAssets/hands/wait.png" alt="">
-                <img class=wait_hand_right src="./indexAssets/hands/wait.png" alt="">
+            <div class="final" id="final">
+                <div class="animation" id="animation1">
+                    <img class=wait_hand_left src="./indexAssets/hands/wait.png" alt="">
+                </div>
+                <div class="final__text">Waiting.....</div>
+                <div class="animation" id="animation2">
+                    <img class=wait_hand_right src="./indexAssets/hands/wait.png" alt="">
+                </div>
             </div>
         </div>
 </body>

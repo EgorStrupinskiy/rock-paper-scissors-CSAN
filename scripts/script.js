@@ -20,7 +20,9 @@ document.getElementById("name_button").addEventListener("click", (e) => {
 
 document.getElementById("game_button").addEventListener("click", (e) => {
     e.preventDefault()
-    document.getElementById("animation").style.display = "flex"
+    document.getElementById("final").style.display = "flex"
+    document.getElementById("animation1").style.display = "block"
+    document.getElementById("animation2").style.display = "block"
     document.getElementById("hands_and_btn").style.display = "none"
 })
 
