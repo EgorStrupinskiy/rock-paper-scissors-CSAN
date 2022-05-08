@@ -24,12 +24,15 @@
             <div class="header__with_logo">
                 <div class="header__inner">
                     <div class="text_and_logo">
-                        <img class="header__logo" id = "header_logo" src="./indexAssets/images/logo.png" alt="">
+                        <img class="header__logo" id="header_logo" src="./indexAssets/images/logo.png" alt="">
                         <div class="header__text">
                             <h1>
                                 <span>R</span>ock <span>P</span>aper <span>S</span>cissors
                             </h1>
                         </div>
+                        <button class="leave__btn" id="leave_button" type="submit">Reload</button>
+
+                        .
                     </div>
                     <div class="score">
                         <div class="rounds_title" id="rounds_left">Rounds Left: 10</div>
@@ -41,12 +44,21 @@
         </div>
     </header>
 
+    <div class="waiting__container" id="waiting_page">
+        <div class="waiting_screen">
+            <div class="wait__title"><span>W</span>ait <span>P</span>lease</div>
+            <div class="loader"></div>
+        </div>
+    </div>
+
     <div class="form__container" id="form">
         <div id="content" class="form__content">
             <form class="form" method="post">
                 <div class="form__title"><span>E</span>nter <span>y</span>our <span>n</span>ame</div>
                 <input class="input" id="name" type="text" placeholder="Your name" pattern=".{1,}" required>
                 <button class="form__btn" id="name_button" type="submit">Send</button>
+                <div class="inner"></div>
+                <button class="form__btn" id="offline_button" type="submit">Go offline :(</button>
             </form>
         </div>
     </div>
@@ -80,13 +92,14 @@
 
             <div class="final" id="final">
                 <div class="animation" id="animation1">
-                    <img class=wait_hand_left id = "left_hand" src="./indexAssets/hands/leftWait.png" alt="">
+                    <img class=wait_hand_left id="left_hand" src="./indexAssets/hands/leftWait.png" alt="">
                 </div>
                 <div class="final__text" id="result">Waiting.....</div>
                 <div class="animation" id="animation2">
-                    <img class=wait_hand_right id = "right_hand" src="./indexAssets/hands/rightWait.png" alt="">
-                </div>                
-                <div class="final__title" id = "final_title" ><span>C</span>hoose <span>y</span>our <span>f</span>ighter</div>
+                    <img class=wait_hand_right id="right_hand" src="./indexAssets/hands/rightWait.png" alt="">
+                </div>
+                <div class="final__title" id="final_title"><span>C</span>hoose <span>y</span>our <span>f</span>ighter
+                </div>
 
 
             </div>

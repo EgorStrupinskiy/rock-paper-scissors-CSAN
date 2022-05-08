@@ -2,37 +2,39 @@ var playerChoice = 0
 const playerOptions = ['paper', 'rock', 'scissors'];
 const computerOptions = ['paper', 'rock', 'scissors']
 var computerChoice = 0
+var state = "offline"
 
 let userInfo = {
     userName: '',
     userChoice: '',
     sessionStatus: ''
-} 
+}
 
-var socket; 
+var socket;
 
 document.getElementById("name_button").addEventListener("click", (e) => {
     if (document.getElementById("name").value === '') {
         alert("Please, enter the name");
     } else {
         e.preventDefault()
-        socket = new WebSocket("ws://localhost:8080/websocket")
-
+        socket = new WebSocket("ws://26.192.55.23:8080/websocket")
+        state = "online"
         socket.onopen = () => {
             userInfo['sessionStatus'] = 'start';
             userInfo['userName'] = document.getElementById("name").value;
             socket.send(JSON.stringify(userInfo));
             console.log("Socket is open");
         }
-        
+        document.getElementById("form").style.display = "none"
+        document.getElementById("waiting_page").style.display = "flex"
+        document.getElementById("pScore").textContent = "Your score: "
         socket.onmessage = (e) => {
             console.log("Message received");
             userInfo = JSON.parse(e.data);
             if (userInfo['sessionStatus'] === "start") {
                 console.log("start message");
-                document.getElementById("form").style.display = "none"
                 document.getElementById("game").style.display = "flex"
-                document.getElementById("cScore").textContent = userInfo.userName + " " + "score"
+                document.getElementById("cScore").textContent = userInfo.userName + ": "
             }
             if (userInfo['sessionStatus'] === "game") {
                 console.log("game message");
@@ -41,7 +43,7 @@ document.getElementById("name_button").addEventListener("click", (e) => {
                 document.getElementById("animation2").style.animation = 'example .4s 1'
             }
         }
-    
+
 
         socket.onclose = () => {
             console.log("Socket closed");
@@ -51,6 +53,18 @@ document.getElementById("name_button").addEventListener("click", (e) => {
         //document.getElementById("game").style.display = "flex"
     }
 })
+
+document.getElementById("offline_button").addEventListener("click", (e) => {
+
+    e.preventDefault()
+
+    userInfo['userName'] = "Computer";
+    document.getElementById("form").style.display = "none"
+    console.log("start offline");
+    document.getElementById("pScore").textContent = "Your score: 0"
+    document.getElementById("game").style.display = "flex"
+    document.getElementById("cScore").textContent = userInfo.userName + ": 0"}
+)
 
 function clearBtns() {
     document.getElementById("btn_paper_panel").style.background = "#ffed2b";
@@ -97,18 +111,21 @@ document.getElementById("game_button").addEventListener("click", (e) => {
     document.getElementById("animation1").style.display = "block"
     document.getElementById("animation2").style.display = "block"
     document.getElementById("hands_and_btn").style.display = "none"
-    document.getElementById("repeat_button").style.display = "flex"
+    document.getElementById("repeat_button").style.display = "none"
 
     var lefthand = document.getElementById("animation1")
     var righthand = document.getElementById("animation2")
     document.getElementById("left_hand").src = `./indexAssets/hands/leftWait.png`;
     document.getElementById("right_hand").src = `./indexAssets/hands/rightWait.png`;
     document.getElementById('result').textContent = "Wait...";
-    //lefthand.style.animation = 'example .4s 3'
-    //righthand.style.animation = 'example .4s 3'
-    lefthand.style.animation = 'example .4s infinite'
-    righthand.style.animation = 'example .4s infinite'
-    
+    if (state === "offline") {
+        lefthand.style.animation = 'example .4s 3'
+        righthand.style.animation = 'example .4s 3'
+    } else {
+        lefthand.style.animation = 'example .4s infinite'
+        righthand.style.animation = 'example .4s infinite'
+    }
+
 })
 
 document.getElementById("repeat_button").addEventListener("click", (e) => {
@@ -121,6 +138,11 @@ document.getElementById("repeat_button").addEventListener("click", (e) => {
 
     document.getElementById("hands_and_btn").style.display = "block"
 
+})
+
+document.getElementById("leave_button").addEventListener("click", (e) => {
+    e.preventDefault()
+    window.location.reload();
 })
 
 const game = () => {
@@ -148,13 +170,14 @@ const game = () => {
             const movesLeft = document.getElementById('rounds_left');
             moves++;
             movesLeft.textContent = `Rounds Left: ${10 - moves}`;
-
-            userInfo['sessionStatus'] = 'game';
-            userInfo['userChoice'] = playerOptions[playerChoice];
-            socket.send(JSON.stringify(userInfo));
-            const choiceNumber = Math.floor(Math.random() * 3);
-            computerChoice = computerOptions[choiceNumber];
-
+            if (state === "online") {
+                userInfo['sessionStatus'] = 'game';
+                userInfo['userChoice'] = playerOptions[playerChoice];
+                socket.send(JSON.stringify(userInfo));
+            } else {
+                const choiceNumber = Math.floor(Math.random() * 3);
+                computerChoice = computerOptions[choiceNumber];
+            }
             // Function to check who wins
 
 
@@ -172,47 +195,40 @@ const game = () => {
     const winner = (player, computer) => {
         const result = document.getElementById('result');
         const playerScoreBoard = document.getElementById('pScore');
-        const computerScoreBoard = document.getElementById('cScore');
+        const opponentScoreBoard = document.getElementById('cScore');
         if (player === computer) {
             result.textContent = 'Tie'
         }
         else if (player == 'rock') {
             if (computer == 'paper') {
-                result.textContent = 'Computer Won';
+                result.textContent = 'Opponent Won';
                 computerScore++;
-                computerScoreBoard.textContent = userInfo['userName'] + `: ${computerScore}`;
-
             } else {
                 result.textContent = 'Player Won'
-
                 playerScore++;
-                playerScoreBoard.textContent = `Player score: ${playerScore}`;
             }
         }
         else if (player == 'scissors') {
             if (computer == 'rock') {
-                result.textContent = 'Computer Won';
+                result.textContent = 'Opponent Won';
                 computerScore++;
-                computerScoreBoard.textContent = userInfo['userName'] +`: ${computerScore}`;
             } else {
                 result.textContent = 'Player Won';
                 playerScore++;
-
-                playerScoreBoard.textContent = `Player score: ${playerScore}`;
             }
         }
         else if (player == 'paper') {
             if (computer == 'scissors') {
-                result.textContent = 'Computer Won';
+                result.textContent = 'Opponent Won';
                 computerScore++;
-                computerScoreBoard.textContent = userInfo['userName'] +`: ${computerScore}`;
             } else {
                 result.textContent = 'Player Won';
                 playerScore++;
-
-                playerScoreBoard.textContent = `Player score: ${playerScore}`;
             }
         }
+        opponentScoreBoard.textContent = `${userInfo['userName']}: ${computerScore}`;
+        playerScoreBoard.textContent = `Your score: ${playerScore}`;
+        document.getElementById("repeat_button").style.display = "flex";
     }
 
 
