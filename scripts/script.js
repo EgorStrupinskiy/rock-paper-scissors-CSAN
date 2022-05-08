@@ -3,13 +3,52 @@ const playerOptions = ['paper', 'rock', 'scissors'];
 const computerOptions = ['paper', 'rock', 'scissors']
 var computerChoice = 0
 
+let userInfo = {
+    userName: '',
+    userChoice: '',
+    sessionStatus: ''
+} 
+
+var socket; 
+
 document.getElementById("name_button").addEventListener("click", (e) => {
     if (document.getElementById("name").value === '') {
         alert("Please, enter the name");
     } else {
         e.preventDefault()
-        document.getElementById("form").style.display = "none"
-        document.getElementById("game").style.display = "flex"
+        socket = new WebSocket("ws://localhost:8080/websocket")
+
+        socket.onopen = () => {
+            userInfo['sessionStatus'] = 'start';
+            userInfo['userName'] = document.getElementById("name").value;
+            socket.send(JSON.stringify(userInfo));
+            console.log("Socket is open");
+        }
+        
+        socket.onmessage = (e) => {
+            console.log("Message received");
+            userInfo = JSON.parse(e.data);
+            if (userInfo['sessionStatus'] === "start") {
+                console.log("start message");
+                document.getElementById("form").style.display = "none"
+                document.getElementById("game").style.display = "flex"
+                document.getElementById("cScore").textContent = userInfo.userName + " " + "score"
+            }
+            if (userInfo['sessionStatus'] === "game") {
+                console.log("game message");
+                computerChoice = userInfo['userChoice'];
+                document.getElementById("animation1").style.animation = 'example .4s 1'
+                document.getElementById("animation2").style.animation = 'example .4s 1'
+            }
+        }
+    
+
+        socket.onclose = () => {
+            console.log("Socket closed");
+        }
+
+        //document.getElementById("form").style.display = "none"
+        //document.getElementById("game").style.display = "flex"
     }
 })
 
@@ -50,6 +89,7 @@ document.getElementById("elem3").addEventListener("click", (e) => {
 
 document.getElementById("game_button").addEventListener("click", (e) => {
     e.preventDefault()
+    console.log("game_button event")
     document.getElementById("rounds_left").style.display = "flex"
     document.getElementById("pScore").style.display = "flex"
     document.getElementById("cScore").style.display = "flex"
@@ -64,11 +104,12 @@ document.getElementById("game_button").addEventListener("click", (e) => {
     document.getElementById("left_hand").src = `./indexAssets/hands/leftWait.png`;
     document.getElementById("right_hand").src = `./indexAssets/hands/rightWait.png`;
     document.getElementById('result').textContent = "Wait...";
-    lefthand.style.animation = 'example .4s 3'
-    righthand.style.animation = 'example .4s 3'
+    //lefthand.style.animation = 'example .4s 3'
+    //righthand.style.animation = 'example .4s 3'
+    lefthand.style.animation = 'example .4s infinite'
+    righthand.style.animation = 'example .4s infinite'
+    
 })
-
-
 
 document.getElementById("repeat_button").addEventListener("click", (e) => {
     e.preventDefault()
@@ -81,27 +122,6 @@ document.getElementById("repeat_button").addEventListener("click", (e) => {
     document.getElementById("hands_and_btn").style.display = "block"
 
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const game = () => {
     let playerScore = 0;
@@ -124,11 +144,14 @@ const game = () => {
         // Function to start playing game
 
         document.getElementById("game_button").addEventListener('click', function () {
+            console.log("playerGame game_button event")
             const movesLeft = document.getElementById('rounds_left');
             moves++;
             movesLeft.textContent = `Rounds Left: ${10 - moves}`;
 
-
+            userInfo['sessionStatus'] = 'game';
+            userInfo['userChoice'] = playerOptions[playerChoice];
+            socket.send(JSON.stringify(userInfo));
             const choiceNumber = Math.floor(Math.random() * 3);
             computerChoice = computerOptions[choiceNumber];
 
@@ -157,7 +180,7 @@ const game = () => {
             if (computer == 'paper') {
                 result.textContent = 'Computer Won';
                 computerScore++;
-                computerScoreBoard.textContent = `Computer score: ${computerScore}`;
+                computerScoreBoard.textContent = userInfo['userName'] + `: ${computerScore}`;
 
             } else {
                 result.textContent = 'Player Won'
@@ -170,7 +193,7 @@ const game = () => {
             if (computer == 'rock') {
                 result.textContent = 'Computer Won';
                 computerScore++;
-                computerScoreBoard.textContent = `Computer score: ${computerScore}`;
+                computerScoreBoard.textContent = userInfo['userName'] +`: ${computerScore}`;
             } else {
                 result.textContent = 'Player Won';
                 playerScore++;
@@ -182,7 +205,7 @@ const game = () => {
             if (computer == 'scissors') {
                 result.textContent = 'Computer Won';
                 computerScore++;
-                computerScoreBoard.textContent = `Computer score: ${computerScore}`;
+                computerScoreBoard.textContent = userInfo['userName'] +`: ${computerScore}`;
             } else {
                 result.textContent = 'Player Won';
                 playerScore++;
