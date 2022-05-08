@@ -21,6 +21,7 @@ body {
 
 .header__text span {
     color: #753dc6;
+
 }
 
 .header {
@@ -34,12 +35,17 @@ body {
 
 .header__inner {
     background-color: #ffed2b;
-    display: flex;
-    justify-content: center;
+
     border: 4px solid #753dc6;
     padding: 0 30px;
     border-radius: 40px;
     align-items: center;
+}
+
+.text_and_logo {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 50px;
 }
 
 .header__text {
@@ -53,11 +59,17 @@ body {
 .header__logo {
     width: 15%;
     height: 15%;
-    margin: 0px 40px;
+    margin: 30px 40px;
 }
 
 .text {
     color: antiquewhite;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.score {
     display: flex;
     justify-content: space-between;
 }
@@ -203,7 +215,7 @@ body {
 }
 
 .game__btn_paper input {
-    background: url(hands/paper.png) no-repeat ;
+    background: url(hands/paperLeft.png) no-repeat;
     background-size: 90px;
     margin-left: 10px;
     width: 90px;
@@ -213,7 +225,7 @@ body {
 }
 
 .game__btn_rock input {
-    background: url(hands/rock.png) no-repeat;
+    background: url(hands/rockLeft.png) no-repeat;
     background-size: 90px;
     width: 90px;
     height: 90px;
@@ -222,7 +234,7 @@ body {
 }
 
 .game__btn_scissors input {
-    background: url(hands/scissors.png) no-repeat;
+    background: url(hands/scissorsLeft.png) no-repeat;
     background-size: 90px;
     width: 90px;
     height: 90px;
@@ -258,12 +270,12 @@ body {
 
 
 .animation {
-    padding: 0px 50px;
+    padding: 0px 70px;
     margin-top: 100px;
     position: relative;
-    animation-name: example;
-    animation-duration: .5s;
-    animation-iteration-count: infinite;
+    /* animation-name: example; */
+    /* animation-duration: .5s; */
+    /* animation-iteration-count: infinite; */
     display: none;
 }
 
@@ -276,7 +288,6 @@ body {
 .wait_hand_right {
     height: 200px;
     width: 200px;
-    transform: scale(-1, 1);
     margin: 0px 100px;
 }
 
@@ -296,6 +307,18 @@ body {
     text-align: center;
 }
 
+.rounds_title {
+    margin: 20px 30px 20px 80px;
+    font-size: 35px;
+    font-weight: 700;
+    color: #753dc6;
+    text-transform: uppercase;
+    font-family: 'Anton', sans-serif;
+    text-shadow: 2px 2px 2px #fff;
+    text-align: center;
+    display: none;
+}
+
 @keyframes example {
     0% {
         top: 0px;
@@ -308,4 +331,43 @@ body {
     100% {
         top: 0px;
     }
+}
+
+.repeat_btn {
+    display: none;
+    width: 20%;
+    margin-left: 42%;
+    padding: 30px 30px;
+    align-items: center;
+    justify-content: center;
+
+    border: 3px solid #753dc6;
+    border-radius: 30px;
+    background-color: #ffed2b;
+    cursor: pointer;
+
+    font-family: 'Anton', sans-serif;
+    font-size: 22px;
+    color: #000;
+    transition: .3s linear;
+}
+
+.repeat_btn:hover {
+    background-color: #000;
+    color: #fff;
+    border-color: #fff;
+}
+
+.final__title {
+    /* margin-left: 460px; */
+    margin: 40px 0 40px 460px;
+    font-size: 35px;
+    font-weight: 700;
+    color: #272727;
+    text-transform: uppercase;
+    color: #fff;
+    font-family: 'Anton', sans-serif;
+    text-shadow: 2px 2px 2px #000;
+    text-align: center;
+    display: none;
 }
