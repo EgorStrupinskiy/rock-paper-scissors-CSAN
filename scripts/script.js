@@ -43,6 +43,12 @@ document.getElementById("name_button").addEventListener("click", (e) => {
                 document.getElementById("animation1").style.animation = 'example .4s 1'
                 document.getElementById("animation2").style.animation = 'example .4s 1'
             }
+            if (userInfo['sessionStatus'] === "terminate") {
+                console.log("terminate message");
+                computerChoice = userInfo['userChoice'];
+                document.getElementById("animation1").style.animation = 'example .4s 1'
+                document.getElementById("animation2").style.animation = 'example .4s 1'
+            }
         }
 
 
@@ -64,7 +70,8 @@ document.getElementById("offline_button").addEventListener("click", (e) => {
     console.log("start offline");
     document.getElementById("pScore").textContent = "Your score: 0"
     document.getElementById("game").style.display = "flex"
-    document.getElementById("cScore").textContent = userInfo.userName + ": 0"}
+    document.getElementById("cScore").textContent = userInfo.userName + ": 0"
+}
 )
 
 function clearBtns() {
@@ -119,6 +126,8 @@ document.getElementById("game_button").addEventListener("click", (e) => {
     document.getElementById("left_hand").src = `./indexAssets/hands/leftWait.png`;
     document.getElementById("right_hand").src = `./indexAssets/hands/rightWait.png`;
     document.getElementById('result').textContent = "Wait...";
+    var lefthand = document.getElementById("animation1")
+    var righthand = document.getElementById("animation2")
     if (state === "offline") {
         lefthand.style.animation = 'example .4s 3'
         righthand.style.animation = 'example .4s 3'
@@ -157,7 +166,12 @@ const game = () => {
         document.getElementById("left_hand").style.transform = 'rotate(30deg)';
         document.getElementById("right_hand").src = `./indexAssets/hands/${computerChoice}Right.png`;
         document.getElementById("right_hand").style.transform = 'rotate(-30deg)';
+
+
         winner(playerOptions[playerChoice], computerChoice)
+        if (moves == 10) {
+            gameOver(playerOptions);
+        }
     });
 
 
@@ -168,6 +182,7 @@ const game = () => {
 
         document.getElementById("game_button").addEventListener('click', function () {
             console.log("playerGame game_button event")
+
             const movesLeft = document.getElementById('rounds_left');
             moves++;
             movesLeft.textContent = `Rounds Left: ${10 - moves}`;
@@ -179,13 +194,13 @@ const game = () => {
                 const choiceNumber = Math.floor(Math.random() * 3);
                 computerChoice = computerOptions[choiceNumber];
             }
+
             // Function to check who wins
 
-
             // Calling gameOver function after 10 moves
-            if (moves == 10) {
-                gameOver(playerOptions, movesLeft);
-            }
+
+
+
         })
     }
 
@@ -197,50 +212,53 @@ const game = () => {
         const result = document.getElementById('result');
         const playerScoreBoard = document.getElementById('pScore');
         const opponentScoreBoard = document.getElementById('cScore');
+        var resulString = ""
         if (player === computer) {
-            result.textContent = 'Tie'
+            resulString = 'Tie'
         }
         else if (player == 'rock') {
             if (computer == 'paper') {
-                result.textContent = 'Opponent Won';
+                resulString = 'Opponent Won';
                 computerScore++;
             } else {
-                result.textContent = 'Player Won'
+                resulString = 'Player Won'
                 playerScore++;
             }
         }
         else if (player == 'scissors') {
             if (computer == 'rock') {
-                result.textContent = 'Opponent Won';
+                resulString = 'Opponent Won';
                 computerScore++;
             } else {
-                result.textContent = 'Player Won';
+                resulString = 'Player Won';
                 playerScore++;
             }
         }
         else if (player == 'paper') {
             if (computer == 'scissors') {
-                result.textContent = 'Opponent Won';
+                resulString = 'Opponent Won';
                 computerScore++;
             } else {
-                result.textContent = 'Player Won';
+                resulString = 'Player Won';
                 playerScore++;
             }
         }
+        if (moves != 10)
+            result.textContent = resulString
+
         opponentScoreBoard.textContent = `${userInfo['userName']}: ${computerScore}`;
         playerScoreBoard.textContent = `Your score: ${playerScore}`;
         document.getElementById("repeat_button").style.display = "flex";
     }
 
 
-    const gameOver = (playerOptions, movesLeft) => {
-
-        const result1 = document.getElementById("final_title");
+    const gameOver = (playerOptions) => {
+        const result1 = document.getElementById("result");
         result1.style.display = "flex"
-        document.getElementById("result").style.display = "none"
-        document.getElementById("animation1").style.display = "none"
-        document.getElementById("animation2").style.display = "none"
-        document.getElementById("hands_and_btn").style.display = "none"
+        // document.getElementById("result").style.display = "none"
+        // document.getElementById("animation1").style.display = "none"
+        // document.getElementById("animation2").style.display = "none"
+        // document.getElementById("hands_and_btn").style.display = "none"
         if (playerScore > computerScore) {
             result1.innerText = 'You Won The Game'
             result1.style.color = '#308D46';
