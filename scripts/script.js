@@ -28,6 +28,8 @@ document.getElementById("name_button").addEventListener("click", (e) => {
         document.getElementById("form").style.display = "none"
         document.getElementById("waiting_page").style.display = "flex"
         document.getElementById("pScore").textContent = "Your score: "
+        document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
+
         socket.onmessage = (e) => {
             console.log("Message received");
             userInfo = JSON.parse(e.data);
@@ -36,6 +38,7 @@ document.getElementById("name_button").addEventListener("click", (e) => {
                 document.getElementById("waiting_page").style.display = "none"
                 document.getElementById("game").style.display = "flex"
                 document.getElementById("cScore").textContent = userInfo.userName + ": "
+
             }
             if (userInfo['sessionStatus'] === "game") {
                 console.log("game message");
@@ -45,9 +48,6 @@ document.getElementById("name_button").addEventListener("click", (e) => {
             }
             if (userInfo['sessionStatus'] === "terminate") {
                 console.log("terminate message");
-                computerChoice = userInfo['userChoice'];
-                document.getElementById("animation1").style.animation = 'example .4s 1'
-                document.getElementById("animation2").style.animation = 'example .4s 1'
             }
         }
 
@@ -71,6 +71,8 @@ document.getElementById("offline_button").addEventListener("click", (e) => {
     document.getElementById("pScore").textContent = "Your score: 0"
     document.getElementById("game").style.display = "flex"
     document.getElementById("cScore").textContent = userInfo.userName + ": 0"
+
+    document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
 }
 )
 
@@ -88,6 +90,7 @@ document.getElementById("elem1").addEventListener("click", (e) => {
     document.getElementById("btn_paper_panel").style.background = "#753dc6";
     document.getElementById("btn_paper_panel").style.borderColor = "#fff"
     document.getElementById("game_button").style.display = "block"
+    document.getElementById("game_button").scrollIntoView({block: "center", behavior: "smooth"});
 })
 
 document.getElementById("elem2").addEventListener("click", (e) => {
@@ -97,6 +100,7 @@ document.getElementById("elem2").addEventListener("click", (e) => {
     document.getElementById("btn_rock_panel").style.background = "#753dc6";
     document.getElementById("btn_rock_panel").style.borderColor = "#fff"
     document.getElementById("game_button").style.display = "block"
+    document.getElementById("game_button").scrollIntoView({block: "center", behavior: "smooth"});
 })
 
 document.getElementById("elem3").addEventListener("click", (e) => {
@@ -106,6 +110,7 @@ document.getElementById("elem3").addEventListener("click", (e) => {
     document.getElementById("btn_scissors_panel").style.background = "#753dc6";
     document.getElementById("btn_scissors_panel").style.borderColor = "#fff"
     document.getElementById("game_button").style.display = "block"
+    document.getElementById("game_button").scrollIntoView({block: "center", behavior: "smooth"});
 })
 
 
@@ -136,6 +141,8 @@ document.getElementById("game_button").addEventListener("click", (e) => {
         righthand.style.animation = 'example .4s infinite'
     }
 
+    document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
+
 })
 
 document.getElementById("repeat_button").addEventListener("click", (e) => {
@@ -153,6 +160,7 @@ document.getElementById("repeat_button").addEventListener("click", (e) => {
 document.getElementById("leave_button").addEventListener("click", (e) => {
     e.preventDefault()
     window.location.reload();
+
 })
 
 const game = () => {
@@ -166,7 +174,8 @@ const game = () => {
         document.getElementById("left_hand").style.transform = 'rotate(30deg)';
         document.getElementById("right_hand").src = `./indexAssets/hands/${computerChoice}Right.png`;
         document.getElementById("right_hand").style.transform = 'rotate(-30deg)';
-
+        // document.getElementById("repeat_button").scrollIntoView({block: "center", behavior: "smooth"});
+        document.getElementById('bottom').scrollIntoView(true);
 
         winner(playerOptions[playerChoice], computerChoice)
         if (moves == 10) {
@@ -213,6 +222,8 @@ const game = () => {
         const playerScoreBoard = document.getElementById('pScore');
         const opponentScoreBoard = document.getElementById('cScore');
         var resulString = ""
+
+
         if (player === computer) {
             resulString = 'Tie'
         }
@@ -249,6 +260,8 @@ const game = () => {
         opponentScoreBoard.textContent = `${userInfo['userName']}: ${computerScore}`;
         playerScoreBoard.textContent = `Your score: ${playerScore}`;
         document.getElementById("repeat_button").style.display = "flex";
+        
+        document.getElementById('bottom').scrollIntoView({block: "center", behavior: "smooth"});
     }
 
 
