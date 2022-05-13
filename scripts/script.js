@@ -3,6 +3,9 @@ const playerOptions = ['paper', 'rock', 'scissors'];
 const computerOptions = ['paper', 'rock', 'scissors']
 var computerChoice = 0
 var state = "offline"
+let moves = 0
+let playerScore = 0
+let computerScore = 0
 
 let userInfo = {
     userName: '',
@@ -17,7 +20,7 @@ document.getElementById("name_button").addEventListener("click", (e) => {
         alert("Please, enter the name");
     } else {
         e.preventDefault()
-        socket = new WebSocket("ws://26.192.55.23:8080/websocket")
+        socket = new WebSocket("ws://localhost:8080/websocket")
         state = "online"
         socket.onopen = () => {
             userInfo['sessionStatus'] = 'start';
@@ -47,7 +50,25 @@ document.getElementById("name_button").addEventListener("click", (e) => {
                 document.getElementById("animation2").style.animation = 'example .4s 1'
             }
             if (userInfo['sessionStatus'] === "terminate") {
+                alert("Your opponent left")
                 console.log("terminate message");
+                document.getElementById("waiting_page").style.display = "flex"
+                document.getElementById("pScore").textContent = "Your score: "
+                document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
+                document.getElementById("game").style.display = "none"
+                document.getElementById("rounds_left").style.display = "none"
+                document.getElementById("pScore").style.display = "none"
+                document.getElementById("cScore").style.display = "none"
+                document.getElementById("final").style.display = "none"
+                document.getElementById("animation1").style.display = "none"
+                document.getElementById("animation2").style.display = "none"
+                document.getElementById("hands_and_btn").style.display = "none"
+                document.getElementById("repeat_button").style.display = "none"
+            
+                document.getElementById("hands_and_btn").style.display = "block"
+                playerScore = 0
+                computerScore = 0
+                moves = 0
             }
         }
 
@@ -164,11 +185,6 @@ document.getElementById("leave_button").addEventListener("click", (e) => {
 })
 
 const game = () => {
-    let playerScore = 0;
-    let computerScore = 0;
-    let moves = 0;
-
-
     document.getElementById("animation1").addEventListener('animationend', function (e) {
         document.getElementById("left_hand").src = `./indexAssets/hands/${playerOptions[playerChoice]}Left.png`;
         document.getElementById("left_hand").style.transform = 'rotate(30deg)';

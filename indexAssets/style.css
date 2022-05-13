@@ -287,10 +287,10 @@ body {
     transition: ease .4s;
 }
 
-.game__panel:hover {
+/* .game__panel:hover {
     background-color: #fff;
     border-color: #000;
-}
+} */
 
 .game__btn_paper input {
     background: url(hands/paperLeft.png) no-repeat;
