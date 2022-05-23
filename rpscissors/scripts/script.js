@@ -91,7 +91,7 @@ document.getElementById("offline_button").addEventListener("click", (e) => {
     document.getElementById("form").style.display = "none"
     console.log("start offline");
     document.getElementById("pScore").textContent = "Your score: 0"
-    document.getElementById("game").style.display = "flex"
+    document.getElementById("game").style.display = "block"
     document.getElementById("cScore").textContent = userInfo.userName + ": 0"
 
     document.getElementById("game").scrollIntoView({ block: "center", behavior: "smooth" });
@@ -318,3 +318,23 @@ const game = () => {
 
 // Calling the game function
 game();
+
+var socket = io();
+
+//alert('hello bobo');
+
+$('chat_form').submit(function () {
+  //var utcDate = (new Date()).toUTCString();
+  var text = $('#message').val();
+  var initials = localStorage.getItem("loggedUser");
+  var message = initials + ': ' + text;
+  socket.emit('message', message);
+  $('#message').val('');
+  return false;
+});
+
+socket.on('message', function (msg) {
+  $('<li>').text(msg).appendTo('#history');
+  var lemon = document.getElementById('history');
+  lemon.scrollTop = lemon.scrollHeight;
+});

@@ -32,7 +32,7 @@
                         </div>
                         <button class="leave__btn" id="leave_button" type="submit">Reload</button>
 
-                        
+
                     </div>
                     <div class="score">
                         <div class="rounds_title" id="rounds_left">Rounds Left: 10</div>
@@ -43,6 +43,7 @@
             </div>
         </div>
     </header>
+    
 
     <div class="waiting__container" id="waiting_page">
         <div class="waiting_screen">
@@ -64,8 +65,6 @@
 
     <div class="game__container" id="game">
         <div id="content" class="game__content">
-
-
             <div class="hands_and_btn" id="hands_and_btn">
                 <div class="game__title"><span>C</span>hoose <span>y</span>our <span>f</span>ighter</div>
                 <div class="hands">
@@ -85,6 +84,8 @@
                         </div>
                     </div>
                 </div>
+                
+    <div id="bottom"></div>
 
                 <button class="game__btn" id="game_button" type="submit">Send</button>
             </div>
@@ -97,14 +98,36 @@
                 <div class="animation" id="animation2">
                     <img class=wait_hand_right id="right_hand" src="./indexAssets/hands/rightWait.png" alt="">
                 </div>
-                <div class="final__title" id="final_title"><span>C</span>hoose <span>y</span>our <span>f</span>ighter
+                <div class="final__title" id="final_title"><span>C</span>hoose <span>y</span>our
+                    <span>f</span>ighter
                 </div>
-
-
             </div>
+
             <button class="repeat_btn" id="repeat_button" type="submit">Continue</button>
+
+
         </div>
-        <div id ="bottom"></div>
+
+        <div class="chat__container" id="chat">
+            <div class="chat">
+                <div class = "history">
+                    <ul id="history">
+                        
+                    <li>These pretzels are making me thirsty!</li>
+                    <li>Right on</li>
+                   
+                    </ul>
+                </div>
+                <ol>
+                    <chat_form>
+                        <input class="chat__input" id="message" type="text" placeholder="Your message" pattern=".{1,}" required>
+                        <button class="chat__btn" id="send_message_button" type="submit">Send</button>
+                    </chat_form>
+                </ol>
+            </div>
+        </div>
+
+    </div>
 </body>
 
 </html>
